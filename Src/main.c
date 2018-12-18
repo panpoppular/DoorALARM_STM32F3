@@ -158,7 +158,7 @@ int main(void)
   /* start timers, add new ones, ... */
   osTimerStart(BuzzertogglerHandle,500);
   osTimerStart(RefresherHandle,1000);
-  osTimerStart(UartSenderHandle,1000);
+  //osTimerStart(UartSenderHandle,1000);
   /* USER CODE END RTOS_TIMERS */
 
   /* Create the thread(s) */
@@ -395,6 +395,15 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 	else if(strOpcode == 'D'){
 		sensorAlarm[sensornum] = 0;
 	}
+	else if(strOpcode == 'S'){
+		if(sensornum == 1){
+			osTimerStart(UartSenderHandle,1000);
+		}
+		if(sensornum == 0){
+			osTimerStop(UartSenderHandle);
+		}
+	}
+
 }
 /* USER CODE END 4 */
 
